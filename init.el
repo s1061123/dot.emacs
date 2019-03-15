@@ -16,26 +16,6 @@
 (defalias 'ps-mule-header-string-charsets 'ignore)
 
 
-;;実際に横幅が 1:2 になるのは、12pt, 13.5pt, 15pt など、1.5の倍数なので、
-;;それに合わせるのがおすすめ。
-(add-to-list 'default-frame-alist '(font . "ricty-13.5"))
-
-(custom-set-variables
- ;; custom-set-variables was added by Custom.
- ;; If you edit it by hand, you could mess it up, so be careful.
- ;; Your init file should contain only one such instance.
- ;; If there is more than one, they won't work right.
- '(package-selected-packages
-   (quote
-    (tidal w3m sclang-snippets sclang-extensions howm elscreen ddskk wanderlust go-mode))))
-
-(custom-set-faces
- ;; custom-set-faces was added by Custom.
- ;; If you edit it by hand, you could mess it up, so be careful.
- ;; Your init file should contain only one such instance.
- ;; If there is more than one, they won't work right.
- )
-
 (menu-bar-mode 0)
 (tool-bar-mode 0)
 (setq visible-bell 't)
@@ -43,7 +23,7 @@
 (display-time-mode)
 (prefer-coding-system 'utf-8-unix)
 ;(set-language-environment "Japanese")           ; 日本語環境設定
-;(setq x-super-keysym 'meta)
+(setq x-super-keysym 'meta)
 
 (let ((default-directory (expand-file-name "~/.emacs.d/lisp")))
   (add-to-list 'load-path default-directory)
@@ -110,6 +90,30 @@
   (use-package elscreen-wl)
   )
 
+;; company
+(use-package company
+    :init
+    (setq company-selection-wrap-around t)
+    :bind
+    (:map company-active-map
+        ("M-n" . nil)
+        ("M-p" . nil)
+        ("C-n" . company-select-next)
+        ("C-p" . company-select-previous)
+        ("C-h" . nil))
+    :config
+    (setq company-tooltip-limit 20) ; bigger popup window
+    (setq company-idle-delay .3)
+    (setq company-minimum-prefix-length 3)
+    (setq company-echo-delay 0)     ; remove annoying blinking
+    (setq company-begin-commands '(self-insert-command))
+    )
+(global-company-mode)
+
+;; With use-package:
+(use-package company-box
+  :hook (company-mode . company-box-mode))
+
 (require 'sclang)
 
 ;; skk
@@ -133,7 +137,30 @@
 	(ndspell)
 	))
 
+;;実際に横幅が 1:2 になるのは、12pt, 13.5pt, 15pt など、1.5の倍数なので、
+;;それに合わせるのがおすすめ。
+;(add-to-list 'default-frame-alist '(font . "ricty-13.5"))
+(set-face-attribute 'default nil :family "Ricty" :height 240)
+(set-fontset-font nil 'japanese-jisx0208 (font-spec :family "Ricty"))
 
+(custom-set-variables
+ ;; custom-set-variables was added by Custom.
+ ;; If you edit it by hand, you could mess it up, so be careful.
+ ;; Your init file should contain only one such instance.
+ ;; If there is more than one, they won't work right.
+ '(package-selected-packages
+   (quote
+    (markdown-mode dockerfile-mode company-box tidal w3m sclang-snippets sclang-extensions howm elscreen ddskk wanderlust go-mode))))
+
+(custom-set-faces
+ ;; custom-set-faces was added by Custom.
+ ;; If you edit it by hand, you could mess it up, so be careful.
+ ;; Your init file should contain only one such instance.
+ ;; If there is more than one, they won't work right.
+ )
+
+;(set-frame-size (selected-frame) 60 20)
+(set-frame-size (selected-frame) 100 40)
+(add-to-list 'default-frame-alist '(height . 40))
+(add-to-list 'default-frame-alist '(width . 110))
 (server-start)
-
-
