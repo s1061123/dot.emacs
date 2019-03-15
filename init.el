@@ -137,11 +137,6 @@
 	(ndspell)
 	))
 
-;;実際に横幅が 1:2 になるのは、12pt, 13.5pt, 15pt など、1.5の倍数なので、
-;;それに合わせるのがおすすめ。
-;(add-to-list 'default-frame-alist '(font . "ricty-13.5"))
-(set-face-attribute 'default nil :family "Ricty" :height 240)
-(set-fontset-font nil 'japanese-jisx0208 (font-spec :family "Ricty"))
 
 (custom-set-variables
  ;; custom-set-variables was added by Custom.
@@ -159,8 +154,28 @@
  ;; If there is more than one, they won't work right.
  )
 
-;(set-frame-size (selected-frame) 60 20)
-(set-frame-size (selected-frame) 100 40)
-(add-to-list 'default-frame-alist '(height . 40))
-(add-to-list 'default-frame-alist '(width . 110))
+(case (getenv "HOSTNAME")
+  ("sakaki"
+   (add-to-list 'default-frame-alist '(font . "ricty-13.5"))
+   (add-to-list 'default-frame-alist '(height . 40))
+   (add-to-list 'default-frame-alist '(width . 110))
+   )
+  ("tohayash-srv"
+   ((set-face-attribute 'default nil :family "Ricty" :height 240)
+    (set-fontset-font nil 'japanese-jisx0208 (font-spec :family "Ricty"))
+    (set-frame-size (selected-frame) 100 40)
+    (add-to-list 'default-frame-alist '(height . 40))
+    (add-to-list 'default-frame-alist '(width . 110))
+    ))
+  )
+
+;;実際に横幅が 1:2 になるのは、12pt, 13.5pt, 15pt など、1.5の倍数なので、
+;;それに合わせるのがおすすめ。
+;(add-to-list 'default-frame-alist '(font . "ricty-13.5"))
+;;(set-face-attribute 'default nil :family "Ricty" :height 240)
+;;(set-fontset-font nil 'japanese-jisx0208 (font-spec :family "Ricty"))
+
+;;(set-frame-size (selected-frame) 100 40)
+;(add-to-list 'default-frame-alist '(height . 40))
+;(add-to-list 'default-frame-alist '(width . 110))
 (server-start)
