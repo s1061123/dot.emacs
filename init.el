@@ -90,6 +90,25 @@
   (use-package elscreen-wl)
   )
 
+;; lsp-mode
+;; https://qiita.com/Ladicle/items/feb5f9dce9adf89652cf#lsp%E3%81%A7%E3%82%88%E3%82%8A%E3%83%A2%E3%83%80%E3%83%B3%E3%81%AA%E9%96%8B%E7%99%BA%E7%92%B0%E5%A2%83%E3%82%92%E6%A7%8B%E7%AF%89%E3%81%99%E3%82%8B----lsp-mode
+(use-package lsp-mode
+  :hook
+  (go-mode . lsp)
+  :custom
+  (lsp-ui-doc-enable t)
+  (lsp-ui-doc-header t)
+  (lsp-ui-doc-include-signature t)
+  (lsp-ui-doc-position 'top) ;; top, bottom, or at-point
+  (lsp-ui-doc-max-width 150)
+  (lsp-ui-doc-max-height 30)
+  :commands lsp
+  )
+(use-package company-lsp)
+(use-package lsp-ui
+  :config
+  (add-hook 'lsp-mode-hook 'lsp-ui-mode))
+
 ;; company
 (use-package company
     :init
@@ -107,6 +126,7 @@
     (setq company-minimum-prefix-length 3)
     (setq company-echo-delay 0)     ; remove annoying blinking
     (setq company-begin-commands '(self-insert-command))
+    (push 'company-lsp company-backends)
     )
 (global-company-mode)
 
@@ -150,7 +170,7 @@
  ;; If there is more than one, they won't work right.
  '(package-selected-packages
    (quote
-    (yaml-mode markdown-mode dockerfile-mode company-box tidal w3m sclang-snippets sclang-extensions howm elscreen ddskk wanderlust go-mode))))
+    (lsp-ui company-lsp lsp-go lsp-ocaml lsp-mode yaml-mode markdown-mode dockerfile-mode company-box tidal w3m sclang-snippets sclang-extensions howm elscreen ddskk wanderlust go-mode))))
 
 (custom-set-faces
  ;; custom-set-faces was added by Custom.
