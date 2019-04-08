@@ -165,7 +165,7 @@
  ;; If there is more than one, they won't work right.
  '(package-selected-packages
    (quote
-    (lsp-ui company-lsp lsp-go lsp-ocaml lsp-mode yaml-mode markdown-mode dockerfile-mode company-box tidal w3m sclang-snippets sclang-extensions howm elscreen ddskk wanderlust go-mode))))
+    (rust-playground rust-mode lsp-ui company-lsp lsp-go lsp-ocaml lsp-mode yaml-mode markdown-mode dockerfile-mode company-box tidal w3m sclang-snippets sclang-extensions howm elscreen ddskk wanderlust go-mode))))
 
 (custom-set-faces
  ;; custom-set-faces was added by Custom.
