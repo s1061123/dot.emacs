@@ -1,5 +1,5 @@
 # Binary output dir
 .*swp
 *~
-lookup/cache-*~
+lookup/cache-*
 session*~
