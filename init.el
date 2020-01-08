@@ -16,6 +16,7 @@
 (defalias 'ps-mule-header-string-charsets 'ignore)
 
 
+(require 'cl)
 (menu-bar-mode 0)
 (tool-bar-mode 0)
 (setq visible-bell 't)
@@ -134,7 +135,7 @@
 (use-package company-box
   :hook (company-mode . company-box-mode))
 
-(require 'sclang)
+;(require 'sclang)
 
 ;; skk
 (global-set-key (kbd "C-x C-j") 'skk-mode)
@@ -174,24 +175,23 @@
  ;; If there is more than one, they won't work right.
  )
 
-(case (getenv "HOSTNAME")
-  ("sakaki"
-   (add-to-list 'default-frame-alist '(font . "ricty-13.5"))
-   (add-to-list 'default-frame-alist '(height . 40))
-   (add-to-list 'default-frame-alist '(width . 110))
-   )
-  ("tohayash-srv"
-   ((set-face-attribute 'default nil :family "Ricty" :height 240)
+(when (string-equal (getenv "HOSTNAME") "sakaki")
+  (set-face-attribute 'default nil :family "Ricty" :height 160)
+  (set-fontset-font nil 'japanese-jisx0208 (font-spec :family "Ricty"))
+  (add-to-list 'default-frame-alist '(height . 40))
+  (add-to-list 'default-frame-alist '(width . 110)))
+(when (string-equal (getenv "HOSTNAME") "tohayash-srv")
+  (set-face-attribute 'default nil :family "Ricty" :height 240)
     (set-fontset-font nil 'japanese-jisx0208 (font-spec :family "Ricty"))
     (set-frame-size (selected-frame) 100 40)
     (add-to-list 'default-frame-alist '(height . 40))
-    (add-to-list 'default-frame-alist '(width . 110))
-    ))
-  )
+    (add-to-list 'default-frame-alist '(width . 110)))
+
 
 ;;実際に横幅が 1:2 になるのは、12pt, 13.5pt, 15pt など、1.5の倍数なので、
 ;;それに合わせるのがおすすめ。
 ;(add-to-list 'default-frame-alist '(font . "ricty-13.5"))
+;; temporaryでのフォント変更にも利用可
 ;;(set-face-attribute 'default nil :family "Ricty" :height 240)
 ;;(set-fontset-font nil 'japanese-jisx0208 (font-spec :family "Ricty"))
 
